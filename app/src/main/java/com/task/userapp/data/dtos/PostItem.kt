@@ -2,7 +2,7 @@ package com.task.userapp.data.dtos
 
 import com.google.gson.annotations.SerializedName
 
-data class Post(
+data class PostItem(
     @SerializedName("title")
     val title: String? = null,
     @SerializedName("body")

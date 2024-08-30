@@ -2,7 +2,7 @@ package com.task.userapp.data.dtos
 
 import com.google.gson.annotations.SerializedName
 
-data class User(
+data class UserItem(
     @SerializedName("name")
     var name: String? = null,
     @SerializedName("url")

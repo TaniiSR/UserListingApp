@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("de.mannodermaus.android-junit5")
 }
 
 android {
@@ -28,6 +29,14 @@ android {
                 "proguard-rules.pro"
             )
         }
+        debug {
+            isMinifyEnabled = false
+            isDebuggable = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -38,6 +47,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -60,11 +70,22 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.converter.gson)
+
     testImplementation(libs.junit)
+    testImplementation(libs.androidx.core.ktx.test)
+    testImplementation(libs.junit5.test)
+    testImplementation(libs.turbine.test)
+    testImplementation(libs.truth.test)
     androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.junit5.extension)
+    androidTestImplementation(libs.androidx.core.test)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    testRuntimeOnly(libs.junit5.engine.test)
+    testRuntimeOnly(libs.vintage.test)
+    testImplementation(libs.arch.testing)
+    testImplementation(kotlin("test"))
 }
