@@ -84,6 +84,7 @@ dependencies {
     testImplementation(libs.turbine.test)
     testImplementation(libs.truth.test)
     testImplementation(libs.coroutines.test)
+    testImplementation(libs.junitParams)
     androidTestImplementation(libs.androidx.junit)
     testImplementation(libs.androidx.core.ktx.test)
     androidTestImplementation(libs.junit5.extension)

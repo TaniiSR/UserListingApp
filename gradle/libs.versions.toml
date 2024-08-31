@@ -64,6 +64,7 @@ vintage-test = { group = "org.junit.vintage", name = "junit-vintage-engine", ver
 arch-testing = { group = "androidx.arch.core", name = "core-testing", version.ref = "archCoreVersion" }
 junit5-extension = { group = "de.mannodermaus.junit5", name = "android-test-extensions", version.ref = "mannodermausExtensions" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutineVersion" }
+junitParams = { group = "org.junit.jupiter", name = "junit-jupiter-params", version.ref = "jupiterVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
