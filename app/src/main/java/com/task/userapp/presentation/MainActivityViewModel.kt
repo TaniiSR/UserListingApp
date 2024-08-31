@@ -6,13 +6,16 @@ import com.task.userapp.data.remote.base.NetworkResult
 import com.task.userapp.domain.usecase.GetDataUserPostUseCase
 import com.task.userapp.presentation.ui.UserUIState
 import com.task.userapp.presentation.ui.ViewType
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainActivityViewModel(
+@HiltViewModel
+class MainActivityViewModel @Inject constructor(
     private val getDataUserPostUseCase: GetDataUserPostUseCase,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {

@@ -5,8 +5,10 @@ import com.task.userapp.data.dtos.UserResponse
 import com.task.userapp.data.remote.base.BaseRepo
 import com.task.userapp.data.remote.base.NetworkResult
 import com.task.userapp.data.remote.service.DataService
+import javax.inject.Inject
 
-class RemoteDataSourceImp(private val apiService: DataService) : BaseRepo(), RemoteDataSource {
+class RemoteDataSourceImp @Inject constructor(private val apiService: DataService) : BaseRepo(),
+    RemoteDataSource {
     override suspend fun getUsersData(): NetworkResult<UserResponse> {
         return safeApiCall { apiService.getUsers() }
     }

@@ -8,9 +8,10 @@ import com.task.userapp.domain.mapper.UserPostToSingleModelMapper
 import com.task.userapp.domain.model.UserModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
+import javax.inject.Inject
 import kotlin.coroutines.coroutineContext
 
-class GetDataUserPostUseCase(
+class GetDataUserPostUseCase @Inject constructor(
     private val dataRepository: DataRepository,
     private val userPostToSingleModelMapper: UserPostToSingleModelMapper
 ) {

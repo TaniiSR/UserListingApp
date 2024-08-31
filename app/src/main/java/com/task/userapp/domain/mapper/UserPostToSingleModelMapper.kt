@@ -4,9 +4,10 @@ import com.task.userapp.data.dtos.PostItem
 import com.task.userapp.data.dtos.UserItem
 import com.task.userapp.domain.model.PostModel
 import com.task.userapp.domain.model.UserModel
+import javax.inject.Inject
 
 
-class UserPostToSingleModelMapper {
+class UserPostToSingleModelMapper @Inject constructor() {
     operator fun invoke(
         userList: List<UserItem>,
         postList: List<PostItem>
