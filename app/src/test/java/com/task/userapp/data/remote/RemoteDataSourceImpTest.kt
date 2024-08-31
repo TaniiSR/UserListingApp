@@ -34,42 +34,42 @@ class RemoteDataSourceImpTest {
 
     @Test
     fun `test fetch user data success`() = runTest {
-        coEvery { apiService.getUsersData() } returns Response.success(UserResponse().apply {
+        coEvery { apiService.getUsers() } returns Response.success(UserResponse().apply {
             add(mockk())
             add(mockk())
         })
         val actualResult = underTest.getUsersData() as NetworkResult.Success
         assertEquals(2, actualResult.data.size)
-        coVerify { apiService.getUsersData() }
+        coVerify { apiService.getUsers() }
     }
 
     @Test
     fun `test fetch post data success`() = runTest {
-        coEvery { apiService.getPostsData() } returns Response.success(PostResponse().apply {
+        coEvery { apiService.getPosts() } returns Response.success(PostResponse().apply {
             add(mockk())
             add(mockk())
         })
         val actualResult = underTest.getUsersData() as NetworkResult.Success
         assertEquals(2, actualResult.data.size)
-        coVerify { apiService.getPostsData() }
+        coVerify { apiService.getPosts() }
     }
 
     @Test
     fun `test fetch user data error`() = runTest {
         val errorMsg = "Request failed please try again"
-        coEvery { apiService.getUsersData() } returns Response.error(400, errorMsg.toResponseBody())
+        coEvery { apiService.getUsers() } returns Response.error(400, errorMsg.toResponseBody())
         val actualResult = underTest.getUsersData() as NetworkResult.Error
         assertEquals(errorMsg, actualResult.error.message)
-        coVerify { apiService.getUsersData() }
+        coVerify { apiService.getUsers() }
     }
 
     @Test
     fun `test fetch post data error`() = runTest {
         val errorMsg = "Request failed please try again"
-        coEvery { apiService.getPostsData() } returns Response.error(400, errorMsg.toResponseBody())
+        coEvery { apiService.getPosts() } returns Response.error(400, errorMsg.toResponseBody())
         val actualResult = underTest.getPostsData() as NetworkResult.Error
         assertEquals(errorMsg, actualResult.error.message)
-        coVerify { apiService.getPostsData() }
+        coVerify { apiService.getPosts() }
     }
 
     @AfterAll
