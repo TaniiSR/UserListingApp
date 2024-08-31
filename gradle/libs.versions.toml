@@ -38,6 +38,7 @@ converter-gson = { group = "com.google.code.gson", name = "gson", version.ref = 
 
 #Coroutines Dependencies
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutineVersion" }
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutineVersion" }
 
 #Retrofit Dependencies
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }

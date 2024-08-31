@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.material3)
     implementation(libs.coroutines.android)
+    implementation(libs.coroutines.core)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.ui.tooling.preview)
@@ -74,6 +75,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.interceptor)
+
+
 
     testImplementation(libs.mockk)
     testImplementation(libs.junit)
