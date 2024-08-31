@@ -14,7 +14,7 @@ class GetDataUserPostUseCase(
     private val dataRepository: DataRepository,
     private val userPostToSingleModelMapper: UserPostToSingleModelMapper
 ) {
-    suspend operator fun invoke(): List<UserModel> {
+    suspend operator fun invoke(): NetworkResult<List<UserModel>> {
         val userList = CoroutineScope(coroutineContext).async {
             dataRepository.fetchUsersData()
         }
@@ -22,10 +22,18 @@ class GetDataUserPostUseCase(
             dataRepository.fetchPostsData()
         }
         return if (userList.await() is NetworkResult.Success && postList.await() is NetworkResult.Success) {
-            userPostToSingleModelMapper(
-                (userList.await() as NetworkResult.Success<List<UserItem>>).data,
-                (postList.await() as NetworkResult.Success<List<PostItem>>).data
+            NetworkResult.Success(
+                data = userPostToSingleModelMapper(
+                    (userList.await() as NetworkResult.Success<List<UserItem>>).data,
+                    (postList.await() as NetworkResult.Success<List<PostItem>>).data
+                )
             )
-        } else throw Exception("Error fetching data")
+        } else {
+            if (userList.await() is NetworkResult.Error) {
+                NetworkResult.Error((userList.await() as NetworkResult.Error).error)
+            } else {
+                NetworkResult.Error((postList.await() as NetworkResult.Error).error)
+            }
+        }
     }
 }
