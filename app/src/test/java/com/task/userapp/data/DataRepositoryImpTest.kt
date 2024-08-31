@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import retrofit2.Response
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExperimentalCoroutinesApi
@@ -30,23 +31,23 @@ class DataRepositoryImpTest {
 
     @Test
     fun `test fetch user data success`() = runTest {
-        coEvery { dataService.getUsersData() } returns UserResponse().apply {
+        coEvery { dataService.getUsersData() } returns Response.success(UserResponse().apply {
             add(mockk())
             add(mockk())
-        }
+        })
         val actualResult = underTest.fetchUsersData()
-        assertEquals(2, actualResult.size)
+        assertEquals(2, actualResult?.size)
         coVerify { dataService.getUsersData() }
     }
 
     @Test
     fun `test fetch post data success`() = runTest {
-        coEvery { dataService.getPostsData() } returns PostResponse().apply {
+        coEvery { dataService.getPostsData() } returns Response.success(PostResponse().apply {
             add(mockk())
             add(mockk())
-        }
+        })
         val actualResult = underTest.fetchPostsData()
-        assertEquals(2, actualResult.size)
+        assertEquals(2, actualResult?.size)
         coVerify { dataService.getPostsData() }
     }
 

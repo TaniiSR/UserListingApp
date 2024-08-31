@@ -71,6 +71,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson)
+    implementation(libs.interceptor)
 
     testImplementation(libs.mockk)
     testImplementation(libs.junit)
