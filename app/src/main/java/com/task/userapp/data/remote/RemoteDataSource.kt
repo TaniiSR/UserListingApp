@@ -4,7 +4,7 @@ import com.task.userapp.data.dtos.PostResponse
 import com.task.userapp.data.dtos.UserResponse
 import retrofit2.Response
 
-interface DataService {
+interface RemoteDataSource {
     fun getUsersData(): Response<UserResponse>
     fun getPostsData(): Response<PostResponse>
 }

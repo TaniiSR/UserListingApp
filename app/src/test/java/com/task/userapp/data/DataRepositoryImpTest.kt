@@ -2,7 +2,7 @@ package com.task.userapp.data
 
 import com.task.userapp.data.dtos.PostResponse
 import com.task.userapp.data.dtos.UserResponse
-import com.task.userapp.data.remote.DataService
+import com.task.userapp.data.remote.RemoteDataSource
 import com.task.userapp.data.remote.base.NetworkResult
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
@@ -22,53 +22,53 @@ import retrofit2.Response
 @ExperimentalCoroutinesApi
 class DataRepositoryImpTest {
     private lateinit var underTest: DataRepositoryImp
-    private lateinit var dataService: DataService
+    private lateinit var remoteDataSource: RemoteDataSource
 
 
     @BeforeAll
     fun setUp() {
-        dataService = mockk()
-        underTest = DataRepositoryImp(dataService)
+        remoteDataSource = mockk()
+        underTest = DataRepositoryImp(remoteDataSource)
     }
 
     @Test
     fun `test fetch user data success`() = runTest {
-        coEvery { dataService.getUsersData() } returns Response.success(UserResponse().apply {
+        coEvery { remoteDataSource.getUsersData() } returns Response.success(UserResponse().apply {
             add(mockk())
             add(mockk())
         })
         val actualResult = underTest.fetchUsersData() as NetworkResult.Success
         assertEquals(2, actualResult.data.size)
-        coVerify { dataService.getUsersData() }
+        coVerify { remoteDataSource.getUsersData() }
     }
 
     @Test
     fun `test fetch post data success`() = runTest {
-        coEvery { dataService.getPostsData() } returns Response.success(PostResponse().apply {
+        coEvery { remoteDataSource.getPostsData() } returns Response.success(PostResponse().apply {
             add(mockk())
             add(mockk())
         })
         val actualResult = underTest.fetchPostsData() as NetworkResult.Success
         assertEquals(2, actualResult.data.size)
-        coVerify { dataService.getPostsData() }
+        coVerify { remoteDataSource.getPostsData() }
     }
 
     @Test
     fun `test fetch user data error`() = runTest {
         val errorMsg = "Request failed please try again"
-        coEvery { dataService.getUsersData() } returns Response.error(400, errorMsg.toResponseBody())
+        coEvery { remoteDataSource.getUsersData() } returns Response.error(400, errorMsg.toResponseBody())
         val actualResult = underTest.fetchUsersData() as NetworkResult.Error
         assertEquals(errorMsg, actualResult.error.message)
-        coVerify { dataService.getUsersData() }
+        coVerify { remoteDataSource.getUsersData() }
     }
 
     @Test
     fun `test fetch post data error`() = runTest {
         val errorMsg = "Request failed please try again"
-        coEvery { dataService.getPostsData() } returns Response.error(400, errorMsg.toResponseBody())
+        coEvery { remoteDataSource.getPostsData() } returns Response.error(400, errorMsg.toResponseBody())
         val actualResult = underTest.fetchPostsData() as NetworkResult.Error
         assertEquals(errorMsg, actualResult.error.message)
-        coVerify { dataService.getPostsData() }
+        coVerify { remoteDataSource.getPostsData() }
     }
 
     @AfterAll
