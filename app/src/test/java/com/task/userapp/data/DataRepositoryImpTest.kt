@@ -7,16 +7,15 @@ import com.task.userapp.data.remote.base.NetworkResult
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
-import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import retrofit2.Response
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExperimentalCoroutinesApi
@@ -33,7 +32,7 @@ class DataRepositoryImpTest {
 
     @Test
     fun `test fetch user data success`() = runTest {
-        coEvery { remoteDataSource.getUsersData() } returns Response.success(UserResponse().apply {
+        coEvery { remoteDataSource.getUsersData() } returns NetworkResult.Success(data = UserResponse().apply {
             add(mockk())
             add(mockk())
         })
@@ -44,7 +43,7 @@ class DataRepositoryImpTest {
 
     @Test
     fun `test fetch post data success`() = runTest {
-        coEvery { remoteDataSource.getPostsData() } returns Response.success(PostResponse().apply {
+        coEvery { remoteDataSource.getPostsData() } returns NetworkResult.Success(data = PostResponse().apply {
             add(mockk())
             add(mockk())
         })
@@ -56,7 +55,11 @@ class DataRepositoryImpTest {
     @Test
     fun `test fetch user data error`() = runTest {
         val errorMsg = "Request failed please try again"
-        coEvery { remoteDataSource.getUsersData() } returns Response.error(400, errorMsg.toResponseBody())
+        coEvery { remoteDataSource.getUsersData() } returns mockk<NetworkResult.Error> {
+            every { error } returns mockk {
+                every { message } returns errorMsg
+            }
+        }
         val actualResult = underTest.fetchUsersData() as NetworkResult.Error
         assertEquals(errorMsg, actualResult.error.message)
         coVerify { remoteDataSource.getUsersData() }
@@ -65,7 +68,11 @@ class DataRepositoryImpTest {
     @Test
     fun `test fetch post data error`() = runTest {
         val errorMsg = "Request failed please try again"
-        coEvery { remoteDataSource.getPostsData() } returns Response.error(400, errorMsg.toResponseBody())
+        coEvery { remoteDataSource.getPostsData() } returns mockk<NetworkResult.Error> {
+            every { error } returns mockk {
+                every { message } returns errorMsg
+            }
+        }
         val actualResult = underTest.fetchPostsData() as NetworkResult.Error
         assertEquals(errorMsg, actualResult.error.message)
         coVerify { remoteDataSource.getPostsData() }
