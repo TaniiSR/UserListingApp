@@ -23,4 +23,5 @@ The project is built on Clean Architecture with the MVVM pattern, encapsulating 
 * Data Layer: Handles data operations, featuring a remote repository for network requests.
 * Domain Layer: Contains business logic and use cases.
 * Presentation Layer: Manages UI logic, utilizing Jetpack Compose for a modern user interface.
+
 This structured approach ensures high maintainability, scalability, and testability.
