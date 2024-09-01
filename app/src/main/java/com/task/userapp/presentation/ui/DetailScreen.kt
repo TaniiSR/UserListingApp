@@ -1,6 +1,7 @@
 package com.task.userapp.presentation.ui
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
@@ -31,6 +32,7 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.task.userapp.R
 import com.task.userapp.domain.model.UserModel
+import com.task.userapp.presentation.ui.composeViews.PostItemView
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,7 +45,7 @@ fun DetailScreen(
             TopAppBar(
                 title = {
                     Text(
-                        text = stringResource(id = R.string.main_screen),
+                        text = stringResource(id = R.string.detail_screen),
                         maxLines = 1,
                         textAlign = TextAlign.Center,
                         color = MaterialTheme.colorScheme.onSurface,
@@ -96,6 +98,12 @@ fun DetailScreen(
                         .clip(RoundedCornerShape(10.dp)),
                     colorFilter = ColorFilter.colorMatrix(matrix)
                 )
+            }
+            item {
+                Spacer(modifier = Modifier.size(10.dp))
+            }
+            items(user.postList.size) { index ->
+                PostItemView(postModel = user.postList[index])
             }
         }
     }
