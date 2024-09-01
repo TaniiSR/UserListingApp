@@ -36,10 +36,14 @@ class MainActivity : ComponentActivity() {
                     composable(MainScreensRoute.MainScreen.route) {
                         MainScreen(
                             uiState = mainUIState,
-                        ) { user ->
-                            mainViewModel.setUser(user)
-                            navHostController.navigate(MainScreensRoute.DetailScreen.route)
-                        }
+                            onUserClicked = { user ->
+                                mainViewModel.setUser(user)
+                                navHostController.navigate(MainScreensRoute.DetailScreen.route)
+                            },
+                            onRetryClicked = {
+                                mainViewModel.fetchData()
+                            }
+                        )
                     }
                     composable(MainScreensRoute.DetailScreen.route) {
                         mainViewModel.user?.let {

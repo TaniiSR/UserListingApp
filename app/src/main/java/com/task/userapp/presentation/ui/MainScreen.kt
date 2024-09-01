@@ -14,8 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import com.task.userapp.R
 import com.task.userapp.domain.model.UserModel
+import com.task.userapp.presentation.ui.composeViews.ErrorView
 import com.task.userapp.presentation.ui.composeViews.LoadingView
 import com.task.userapp.presentation.ui.composeViews.MainScreenView
 import com.task.userapp.presentation.view.MainUIState
@@ -25,7 +27,8 @@ import com.task.userapp.presentation.view.ViewType
 @Composable
 fun MainScreen(
     uiState: MainUIState,
-    onUserClicked: (user: UserModel) -> Unit
+    onUserClicked: (user: UserModel) -> Unit,
+    onRetryClicked: () -> Unit
 ) {
     Scaffold(modifier = Modifier.fillMaxSize(),
         topBar = {
@@ -67,9 +70,34 @@ fun MainScreen(
                 }
 
                 is ViewType.Error -> {
-                    // Show error
+                    ErrorView(onRetryClicked = onRetryClicked)
                 }
             }
         }
+    }
+}
+
+@Preview
+@Composable
+fun MainScreenPreview() {
+    MaterialTheme {
+        MainScreen(
+            uiState = MainUIState(
+                viewType = ViewType.Success(
+                    data = listOf(
+                        UserModel(
+                            name = "John Doe",
+                            thumbnailUrl = "",
+                            postList = listOf(),
+                            albumId = 1,
+                            userId = 2,
+                            url = ""
+                        )
+                    )
+                )
+            ),
+            onUserClicked = {},
+            onRetryClicked = {}
+        )
     }
 }

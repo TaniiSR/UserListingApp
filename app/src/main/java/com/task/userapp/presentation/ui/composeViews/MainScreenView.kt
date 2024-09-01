@@ -21,12 +21,12 @@ import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.task.userapp.R
 import com.task.userapp.domain.model.UserModel
-import com.task.userapp.utils.CombinedThemePreviewsWithBackground
 
 @Composable
 fun MainScreenView(
@@ -82,9 +82,9 @@ fun UserItemView(
     }
 }
 
-@CombinedThemePreviewsWithBackground
+@Preview
 @Composable
-fun ReportReasonPreview() {
+fun MainScreenViewPreview() {
     MaterialTheme {
         MainScreenView(
             userList = listOf(
