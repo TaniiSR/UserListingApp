@@ -1,8 +1,8 @@
-package com.task.userapp.presentation.ui
+package com.task.userapp.presentation.view
 
 import com.task.userapp.domain.model.UserModel
 
-data class UserUIState(
+data class MainUIState(
     var viewType: ViewType = ViewType.Loading
 )
 

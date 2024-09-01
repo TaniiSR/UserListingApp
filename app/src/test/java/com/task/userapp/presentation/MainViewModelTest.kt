@@ -6,7 +6,8 @@ import com.task.userapp.data.remote.base.NetworkResult
 import com.task.userapp.domain.model.PostModel
 import com.task.userapp.domain.model.UserModel
 import com.task.userapp.domain.usecase.GetDataUserPostUseCase
-import com.task.userapp.presentation.ui.ViewType
+import com.task.userapp.presentation.view.ViewType
+import com.task.userapp.presentation.view.MainViewModel
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -24,14 +25,14 @@ import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExperimentalCoroutinesApi
-class MainActivityViewModelTest {
-    private lateinit var underTest: MainActivityViewModel
+class MainViewModelTest {
+    private lateinit var underTest: MainViewModel
     private val getDataUserPostUseCase: GetDataUserPostUseCase = mockk()
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.Unconfined
 
     @BeforeAll
     fun setUp() {
-        underTest = MainActivityViewModel(
+        underTest = MainViewModel(
             getDataUserPostUseCase,
             ioDispatcher
         )

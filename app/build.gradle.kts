@@ -74,6 +74,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.compose.viewModel)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
     implementation(libs.interceptor)

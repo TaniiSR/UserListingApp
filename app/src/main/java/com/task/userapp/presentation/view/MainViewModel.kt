@@ -1,11 +1,9 @@
-package com.task.userapp.presentation
+package com.task.userapp.presentation.view
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.task.userapp.data.remote.base.NetworkResult
 import com.task.userapp.domain.usecase.GetDataUserPostUseCase
-import com.task.userapp.presentation.ui.UserUIState
-import com.task.userapp.presentation.ui.ViewType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,19 +13,22 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(
+class MainViewModel @Inject constructor(
     private val getDataUserPostUseCase: GetDataUserPostUseCase,
     private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(UserUIState())
+    private val _uiState = MutableStateFlow(MainUIState())
     val uiState = _uiState.asStateFlow()
 
+    init {
+        fetchData()
+    }
     /**
      * Fetch data from the API call.
      */
     fun fetchData() {
-        _uiState.value = UserUIState(viewType = ViewType.Loading)
+        _uiState.value = MainUIState(viewType = ViewType.Loading)
         viewModelScope.launch(ioDispatcher) {
             runCatching {
                 val result = getDataUserPostUseCase()
