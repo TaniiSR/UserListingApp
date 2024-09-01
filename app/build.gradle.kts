@@ -81,6 +81,7 @@ dependencies {
     implementation(libs.interceptor)
     implementation(libs.navigation.hilt)
     implementation(libs.hilt.android)
+    implementation(libs.coil)
     ksp(libs.hilt.compiler)
 
 

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import com.task.userapp.R
 import com.task.userapp.domain.model.UserModel
 import com.task.userapp.presentation.ui.composeViews.LoadingView
+import com.task.userapp.presentation.ui.composeViews.MainScreenView
 import com.task.userapp.presentation.view.MainUIState
 import com.task.userapp.presentation.view.ViewType
 
@@ -59,7 +60,10 @@ fun MainScreen(
                 }
 
                 is ViewType.Success -> {
-                    // Show success
+                    MainScreenView(
+                        userList = (uiState.viewType as ViewType.Success).data,
+                        onUserClicked = onUserClicked
+                    )
                 }
 
                 is ViewType.Error -> {

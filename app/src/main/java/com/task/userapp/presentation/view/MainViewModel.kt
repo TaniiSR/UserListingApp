@@ -3,6 +3,7 @@ package com.task.userapp.presentation.view
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.task.userapp.data.remote.base.NetworkResult
+import com.task.userapp.domain.model.UserModel
 import com.task.userapp.domain.usecase.GetDataUserPostUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -21,9 +22,14 @@ class MainViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(MainUIState())
     val uiState = _uiState.asStateFlow()
 
+    var user: UserModel? = null
+        private set
+
+
     init {
         fetchData()
     }
+
     /**
      * Fetch data from the API call.
      */
@@ -49,5 +55,9 @@ class MainViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun setUser(user: UserModel?) {
+        this.user = user
     }
 }

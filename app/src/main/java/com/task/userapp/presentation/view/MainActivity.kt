@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.task.userapp.presentation.route.MainScreensRoute
+import com.task.userapp.presentation.ui.DetailScreen
 import com.task.userapp.presentation.ui.MainScreen
 import com.task.userapp.ui.theme.UserAppTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +37,16 @@ class MainActivity : ComponentActivity() {
                         MainScreen(
                             uiState = mainUIState,
                         ) { user ->
+                            mainViewModel.setUser(user)
                             navHostController.navigate(MainScreensRoute.DetailScreen.route)
+                        }
+                    }
+                    composable(MainScreensRoute.DetailScreen.route) {
+                        mainViewModel.user?.let {
+                            DetailScreen(it) {
+                                navHostController.popBackStack()
+                                mainViewModel.setUser(null)
+                            }
                         }
                     }
                 }
